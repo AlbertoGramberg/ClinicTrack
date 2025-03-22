@@ -1,0 +1,45 @@
+{% extends 'home.html' %}  <!-- Extiende tu plantilla base si tienes una -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Pacientes</h2>
+    <a href="{% url 'subir_paciente' %}" class="btn btn-success mb-3">Agregar Nuevo Paciente</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Edad</th>
+                <th>Obra Social</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.apellido }}</td>
+                <td>{{ paciente.dni }}</td>
+                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.obra_social|default:"-" }}</td>
+                <td>
+                    <!-- Botón para modificar paciente -->
+                    <a href="{% url 'modificar_paciente' paciente.id %}" class="btn btn-warning btn-sm">Modificar</a>
+                    <!-- Botón para eliminar paciente -->
+                    <a href="" class="btn btn-danger btn-sm">Eliminar</a>
+                    <!-- Botón para agregar consulta -->
+                    <a href="{% url 'agregar_consulta' paciente.id %}" class="btn btn-primary btn-sm">Agregar Consulta</a>
+                    <!-- Botón para Ver consulta -->
+                    <a href="{% url 'lista_consultas' paciente.id %}" class="btn btn-primary btn-sm">Ver Consulta</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay pacientes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

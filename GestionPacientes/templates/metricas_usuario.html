@@ -1,0 +1,94 @@
+{% extends 'home.html' %}  <!-- Extiende tu plantilla base -->
+
+{% block content %}
+<div class="row">
+    <h2>Métricas del Usuario</h2>
+    <!-- Número de pacientes atendidos -->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Número de Pacientes Atendidos</h5>
+            <p class="display-4" id="numero-pacientes">0</p>
+        </div>
+      </div>
+      <!-- Edad promedio de los pacientes -->
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Edad Promedio de los Pacientes</h5>
+          <p class="display-4" id="edad-promedio">0</p>
+        </div>
+      </div>
+    </div>
+    <!-- Gráfica de pacientes vs meses del año -->
+    <div class="col-sm-6">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Consultas por Mes</h5>
+            <canvas id="grafica-pacientes-meses"></canvas>
+          </div>
+        </div>
+    </div>
+        
+    
+</div>
+
+
+
+<!-- Incluir Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Script para animaciones y gráfica -->
+<script>
+    // Animación para el número de pacientes atendidos
+    const numeroPacientes = {{ numero_pacientes }};
+    const edadPromedio = {{ edad_promedio }};
+    const datosGrafica = {{ datos_grafica|safe }};
+    const meses = {{ meses|safe }};
+
+    // Función para animar números
+    function animarNumero(elementoId, valorFinal, duracion = 1000) {
+        let inicio = 0;
+        const incremento = valorFinal / (duracion / 10);
+        const elemento = document.getElementById(elementoId);
+
+        const intervalo = setInterval(() => {
+            inicio += incremento;
+            if (inicio >= valorFinal) {
+                elemento.textContent = valorFinal.toFixed(1);
+                clearInterval(intervalo);
+            } else {
+                elemento.textContent = Math.floor(inicio);
+            }
+        }, 10);
+    }
+
+    // Animar el número de pacientes atendidos
+    animarNumero('numero-pacientes', numeroPacientes);
+
+    // Animar la edad promedio
+    animarNumero('edad-promedio', edadPromedio);
+
+    // Configurar la gráfica de pacientes vs meses
+    const ctx = document.getElementById('grafica-pacientes-meses').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Consultas por Mes',
+                data: datosGrafica,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

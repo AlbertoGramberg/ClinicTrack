@@ -1,0 +1,16 @@
+{% extends 'home.html' %}  <!-- Extiende tu plantilla base si tienes una -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Subir Paciente</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}  <!-- Token de seguridad para proteger el formulario -->
+        <div class="card">
+            <div class="card-body">
+                {{ paciente_form.as_p }}  <!-- Renderiza el formulario como párrafos -->
+                <button type="submit" class="btn btn-primary">Guardar Paciente</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

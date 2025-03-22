@@ -1,0 +1,11 @@
+digraph {
+	VC [label="Vía Clásica" fillcolor=lightblue shape=box style=filled]
+	VL [label="Vía de las Lectinas" fillcolor=lightblue shape=box style=filled]
+	VA [label="Vía Alternativa" fillcolor=lightblue shape=box style=filled]
+	C3 [label="C3 Convertasa" fillcolor=red style=filled]
+	C5 [label=C5a fillcolor=green style=filled]
+	VC -> C3
+	VL -> C3
+	VA -> C3
+	C3 -> C5
+}

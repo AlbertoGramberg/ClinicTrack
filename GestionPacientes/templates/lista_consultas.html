@@ -1,0 +1,32 @@
+{% extends 'home.html' %}  <!-- Extiende tu plantilla base si tienes una -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Consultas de {{ paciente.nombre }} {{ paciente.apellido }}</h2>
+    <a href="{% url 'lista_pacientes' %}" class="btn btn-secondary mb-3">Volver a la lista de pacientes</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Motivo de Consulta</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.fecha|date:"d/m/Y H:i" }}</td>
+                <td>{{ consulta.motivo_de_consulta|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'ver_consulta' consulta.id %}" class="btn btn-primary btn-sm">Ver Detalles</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No hay consultas registradas para este paciente.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

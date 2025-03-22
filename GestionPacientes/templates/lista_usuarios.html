@@ -1,0 +1,22 @@
+{%extends 'home.html'%}
+{%block content%}
+
+<h1>Lista de Usuarios</h1>
+    <table class="table table-dark table-striped" >
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

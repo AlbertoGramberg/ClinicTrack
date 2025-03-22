@@ -1,0 +1,13 @@
+{% extends 'home.html' %}  <!-- Extiende tu plantilla base si tienes una -->
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Modificar Paciente</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+        <a href="{% url 'lista_pacientes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

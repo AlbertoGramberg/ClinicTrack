@@ -1,0 +1,62 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Detalles de la Consulta</h2>
+    <a href="{% url 'lista_consultas' consulta.paciente.id %}" class="btn btn-secondary mb-3">Volver a la lista de consultas</a>
+
+    {% if not consulta.analisis_ai %}
+        <form method="post" action="{% url 'generar_analisis_ai' consulta.id %}" class="mb-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-info">Análisis AI</button>
+        </form>
+    {% endif %}
+
+    {% if consulta.analisis_ai %}
+        <div class="card mb-3" id="analisis-ai">
+            <div class="card-header">
+                <h5>Análisis AI</h5>
+            </div>
+            <div class="card-body">
+                <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ consulta.analisis_ai }}</pre>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card" id="consulta-detalles">
+        <div class="card-body">
+            <h5 class="card-title">Fecha: {{ consulta.fecha|date:"d/m/Y H:i" }}</h5>
+            <p class="card-text"><strong>Motivo de Consulta:</strong> {{ consulta.motivo_de_consulta|default:"-" }}</p>
+            <p class="card-text"><strong>Antecedentes:</strong> {{ consulta.antecedentes|default:"-" }}</p>
+            <p class="card-text"><strong>Diagnóstico Actual:</strong> {{ consulta.dx_actual|default:"-" }}</p>
+            <p class="card-text"><strong>Laboratorios:</strong> {{ consulta.laboratorios|default:"-" }}</p>
+            <p class="card-text"><strong>Estudios Realizados:</strong> {{ consulta.estudios_realizados|default:"-" }}</p>
+            <p class="card-text"><strong>Tratamiento:</strong> {{ consulta.tratamiento|default:"-" }}</p>
+            <p class="card-text"><strong>Comentarios:</strong> {{ consulta.comentarios|default:"-" }}</p>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-success" onclick="guardarComoPDF()">Guardar como PDF</button>
+        <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+    </div>
+</div>
+
+<script>
+    function guardarComoPDF() {
+        const element = document.createElement('div');
+        const consultaDetalles = document.getElementById('consulta-detalles').cloneNode(true);
+        const analisisAI = document.getElementById('analisis-ai') ? document.getElementById('analisis-ai').cloneNode(true) : null;
+        
+        if (analisisAI) {
+            element.appendChild(analisisAI);
+        }
+        element.appendChild(consultaDetalles);
+        
+        html2pdf().from(element).save('consulta.pdf');
+    }
+</script>
+
+<!-- Incluir la librería html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+{% endblock %}
