@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-nqepqo-3vmx&)^7$nvi6mtl&b2gv#q2d!!o$%a*n228l3(g6@v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOMED_HOSTS = ['3.142.50.210 ','localhost']
 
 # Application definition
 
@@ -139,7 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+STATIC_ROOT - os.path. joim(BASE_DIR, 'static/')
 SITE_ID = 1  # Asegúrate de que esté presente
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
