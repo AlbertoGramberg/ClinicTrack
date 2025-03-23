@@ -128,7 +128,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 # Configuración para archivos estáticos
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')]
+
 
 # Configuración para archivos medios
 MEDIA_URL = '/media/'
@@ -138,7 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 SITE_ID = 1  # Asegúrate de que esté presente
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
