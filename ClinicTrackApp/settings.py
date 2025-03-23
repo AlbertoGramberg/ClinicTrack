@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['18.189.188.124', 'localhost', '127.0.0.1']
 # Application definition
 
+WSGI_APPLICATION = 'ClinicTrack.wsgi.application'
 INSTALLED_APPS = [
     
     'GestionPacientes',
